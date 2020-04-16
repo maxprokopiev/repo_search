@@ -1,7 +1,7 @@
 class SearchRepositories
   class Success < OpenStruct
     def deconstruct
-      [items, total_count]
+      [items, total_count, page]
     end
   end
 
@@ -12,6 +12,7 @@ class SearchRepositories
   end
 
   RESULTS_PER_PAGE = 12
+  MAX_RESULTS = 1000
 
   def self.call(*args)
     new(Octokit::Client.new).call(*args)
@@ -21,13 +22,15 @@ class SearchRepositories
     @client = client
   end
 
-  def call(query)
-    response = get_repos(query)
+  def call(query, page)
+    page = (page || 1).to_i
+    response = get_repos(query, page)
 
     if response.items && response.items.present? then
       Success.new(
         items: get_items(response.items),
-        total_count: response.total_count
+        total_count: get_total_count(response.total_count),
+        page: page
       )
     else
       Error.new(error: :not_found)
@@ -38,11 +41,15 @@ class SearchRepositories
 
   private
 
-  def get_repos(query)
-    @client.search_repositories(query, per_page: RESULTS_PER_PAGE)
+  def get_repos(query, page)
+    @client.search_repositories(query, page: page, per_page: RESULTS_PER_PAGE)
   end
 
   def get_items(items)
     items.map { |item| Repo.new(item.name, item.owner.login, item.description) }
+  end
+
+  def get_total_count(raw_total_count)
+    [raw_total_count, MAX_RESULTS].min
   end
 end

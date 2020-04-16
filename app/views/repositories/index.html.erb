@@ -16,15 +16,25 @@
 
 <%- unless @repos.empty? %>
   <%- if @repos.error? %>
-    <p><%= @repos.error_message %></p>
+    <p class="results-notice text-muted"><%= @repos.error_message %></p>
   <%- else %>
-    <p class="results-notice text-muted">found <%= pluralize @repos.total_count, 'repo' %></p>
+    <p class="results-notice text-muted">
+      found <%= pluralize @repos.total_count, 'repo' %> displaying page <%= @repos.current_page %> of <%= @repos.page_count %>
+    </p>
 
     <div class="results">
       <%- @repos.each do |repo| %>
         <%= render partial: "repo", locals: { repo: repo } %>
       <%- end %>
     </div>
+
+    <%- if @repos.page_count > 1 %>
+      <%= render partial: 'pagination', locals: {
+        current_page: @repos.current_page,
+        pages: @repos.page_count,
+        query: params[:q]
+      } %>
+    <%- end %>
   <%- end %>
 <%- end %>
 
