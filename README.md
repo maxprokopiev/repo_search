@@ -1,24 +1,21 @@
-# README
+# Search repositories across Github
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Quick start
 
-Things you may want to cover:
+```
+bin/rails s
+```
 
-* Ruby version
+## Running specs
 
-* System dependencies
+```
+bin/rspec spec
+```
 
-* Configuration
+## TODOs / Trade-offs
 
-* Database creation
+* If you use authenticated requests with Octokit you get a higher rate limit. But I've added caching, so it helps a bit.
+* Use some gem for service objects, like `interactor` (but it's not really needed for just one service)
+* Use twitter-bootstrap gem instead of url to boostrap CDN (again, not really needed for such simple UI)
+* CI like travis
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
