@@ -8,16 +8,18 @@ RSpec.describe "Search repositories", type: :system do
   let(:repo) { double(:repo, name: "noSecrets4NSA") }
   let(:response) { double(:response, items: [repo]) }
 
-  before do
-    allow_any_instance_of(Octokit::Client).to receive(:search_repositories).and_return(response)
-  end
+  context "basic search" do
+    before do
+      allow_any_instance_of(Octokit::Client).to receive(:search_repositories).and_return(response)
+    end
 
-  it "enables search across Github repositories" do
-    visit "/?search"
+    it "enables search across Github repositories" do
+      visit "/?search"
 
-    fill_in "q", with: "NSA secrets"
-    click_button "Search"
+      fill_in "q", with: "NSA secrets"
+      click_button "Search"
 
-    expect(page).to have_text("noSecrets4NSA")
+      expect(page).to have_text("noSecrets4NSA")
+    end
   end
 end

@@ -30,4 +30,5 @@ end
 
 group :development, :test do
   gem 'rspec-rails', '~> 4.0.0'
+  gem 'rspec-collection_matchers'
 end
