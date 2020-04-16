@@ -13,3 +13,7 @@
       <%= submit_tag("Search", class: "search-btn btn btn-primary") %>
   </div>
 <% end %>
+
+<%- @repos.each do |repo| %>
+  <p><%= repo.name %></p>
+<%- end %>
