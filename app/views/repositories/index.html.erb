@@ -14,6 +14,17 @@
   </div>
 <% end %>
 
-<%- @repos.each do |repo| %>
-  <p><%= repo.name %></p>
+<%- unless @repos.empty? %>
+  <%- if @repos.error? %>
+    <p><%= @repos.error_message %></p>
+  <%- else %>
+    <p class="results-notice text-muted">found <%= pluralize @repos.total_count, 'repo' %></p>
+
+    <div class="results">
+      <%- @repos.each do |repo| %>
+        <%= render partial: "repo", locals: { repo: repo } %>
+      <%- end %>
+    </div>
+  <%- end %>
 <%- end %>
+

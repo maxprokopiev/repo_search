@@ -6,11 +6,13 @@ RSpec.describe "Search repositories", type: :system do
   end
 
   let(:repo) { double(:repo, name: "noSecrets4NSA") }
-  let(:response) { double(:response, items: [repo]) }
+  let(:result) { SearchRepositories::Success.new(items: [repo], total_count: 1) }
 
   context "basic search" do
     before do
       allow_any_instance_of(Octokit::Client).to receive(:search_repositories).and_return(response)
+      allow_any_instance_of(SearchRepositories).to receive(:call)
+        .and_return(result)
     end
 
     it "enables search across Github repositories" do

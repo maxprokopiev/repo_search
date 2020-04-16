@@ -17,3 +17,19 @@
 .search-btn {
   margin-left: 10px;
 }
+
+.results {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.results .repo {
+  height: 150px;
+  margin: 0 10px 10px 0;
+  flex: 1 0 auto;
+  width: 25%;
+}
+
+.results-notice {
+  margin-bottom: 25px;
+}
