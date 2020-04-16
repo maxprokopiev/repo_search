@@ -1,5 +1,10 @@
 <div class="repo card">
   <div class="card-body">
     <h5 class="card-title short"><%= repo.name %></h5>
+    <h6 class="card-subtitle mb-2 text-muted">by <%= repo.login %></h6>
+
+    <p class="card-text short"><%= repo.description %></p>
+
+    <a href="<%= repo.url %>" target="_blank" class="card-link">View on Github</a>
   </div>
 </div>

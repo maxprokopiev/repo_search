@@ -33,3 +33,9 @@
 .results-notice {
   margin-bottom: 25px;
 }
+
+.short {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}

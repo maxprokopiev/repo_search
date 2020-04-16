@@ -46,7 +46,7 @@ class SearchRepositories
   end
 
   def get_items(items)
-    items.map { |item| Repo.new(item.name, item.owner.login, item.description) }
+    items.map { |item| Repo.new(item.name, item.owner.login, item.description, item.html_url) }
   end
 
   def get_total_count(raw_total_count)

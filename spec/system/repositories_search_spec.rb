@@ -5,7 +5,7 @@ RSpec.describe "Search repositories", type: :system do
     driven_by(:rack_test)
   end
 
-  let(:repo) { double(:repo, name: "noSecrets4NSA") }
+  let(:repo) { double(:repo, name: "noSecrets4NSA", login: "againstthesystem", description: "", url: "https://example.com") }
   let(:result) { SearchRepositories::Success.new(items: [repo], total_count: 1, page: 1) }
 
   context "basic search" do

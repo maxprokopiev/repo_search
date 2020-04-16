@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe SearchRepositories do
   context "when there are search results" do
-    let(:repo) { double(:repo, name: "True Crypt", owner: double(:o, login: "revealer"), description: "") }
+    let(:repo) { double(:repo, name: "True Crypt", owner: double(:o, login: "revealer"), description: "", html_url: "https://example.com") }
     let(:client) { double(:client, search_repositories: double(:result, total_count: 1, items: [repo])) }
     let(:repos) { SearchRepositories.new(client).call("bnd secrets", 1) }
 
