@@ -1,7 +1,7 @@
 class RepositoriesController < ApplicationController
   def index
     @repos = if params[:q].present?
-      case SearchRepositories.call(params[:q], params[:page])
+      case get_repos(params[:q], params[:page])
       in [error]
         RepositoriesPresenter.new(error: error)
       in [items, total_count, page]
@@ -14,6 +14,13 @@ class RepositoriesController < ApplicationController
       end
     else
       RepositoriesPresenter.new
+    end
+  end
+
+
+  def get_repos(query, page)
+    Rails.cache.fetch("repos/#{query}/#{page}", expires_in: 10.minutes) do
+      SearchRepositories.call(query, page)
     end
   end
 end
